@@ -89,7 +89,7 @@ class SplashActivity : AppCompatActivity() {
 
     /** 左侧竖排文字：每个字一行，绿色 + 霞鹜文楷 + 弹性入场 */
     private fun buildVerticalSlogan() {
-        val container = findViewById<View>(R.id.splash_chars)
+        val container = findViewById<android.widget.LinearLayout>(R.id.splash_chars)
         val density = resources.displayMetrics.density
 
         SLOGAN.forEachIndexed { index, ch ->
