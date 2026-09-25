@@ -31,6 +31,18 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Create debug keystore (signing.gradle fallback)
+        run: |
+          mkdir -p "$HOME/.android" "$HOME/.config/.android"
+          if [ ! -f "$HOME/.android/debug.keystore" ]; then
+            keytool -genkeypair -v -keystore "$HOME/.android/debug.keystore" \
+              -storepass android -alias androiddebugkey -keypass android \
+              -keyalg RSA -keysize 2048 -validity 10000 \
+              -dname "CN=Android Debug,O=Android,C=US" >/dev/null 2>&1
+          fi
+          cp -f "$HOME/.android/debug.keystore" "$HOME/.config/.android/debug.keystore"
+          echo "debug keystore ready"
+
       - name: Build release APK
         run: |
           echo 'org.gradle.caching=true' >> gradle.properties
