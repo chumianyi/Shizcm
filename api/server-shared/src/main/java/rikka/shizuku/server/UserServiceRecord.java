@@ -9,7 +9,7 @@ import android.os.RemoteCallbackList;
 
 import java.util.UUID;
 
-import com.chumian.shizcm.server.IShizukuServiceConnection;
+import moe.shizuku.server.IShizukuServiceConnection;
 import rikka.shizuku.server.util.HandlerUtil;
 import rikka.shizuku.server.util.Logger;
 

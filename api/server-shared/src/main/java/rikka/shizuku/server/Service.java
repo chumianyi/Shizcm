@@ -19,8 +19,8 @@ import java.util.Arrays;
 
 import moe.shizuku.server.IRemoteProcess;
 import moe.shizuku.server.IShizukuApplication;
-import com.chumian.shizcm.server.IShizukuService;
-import com.chumian.shizcm.server.IShizukuServiceConnection;
+import moe.shizuku.server.IShizukuService;
+import moe.shizuku.server.IShizukuServiceConnection;
 import rikka.hidden.compat.PermissionManagerApis;
 import rikka.rish.RishConfig;
 import rikka.rish.RishService;

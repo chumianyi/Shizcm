@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Objects;
 
 import moe.shizuku.server.IShizukuApplication;
-import com.chumian.shizcm.server.IShizukuService;
+import moe.shizuku.server.IShizukuService;
 
 public class Shizuku {
 
