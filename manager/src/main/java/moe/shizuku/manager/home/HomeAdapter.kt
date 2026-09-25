@@ -55,19 +55,18 @@ class HomeAdapter(private val homeModel: HomeViewModel, private val appsModel: A
             val root = EnvironmentUtils.isRooted()
             val rootRestart = running && status.uid == 0
 
+            // Root 模式：仅检测到 Root（su）时显示
             if (root) {
                 addItem(StartRootViewHolder.CREATOR, rootRestart, ID_START_ROOT)
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R || EnvironmentUtils.getAdbTcpPort() > 0) {
+            // 普通模式（无线调试）：仅 Android 11+ 支持无线调试的设备显示
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 addItem(StartWirelessAdbViewHolder.CREATOR, null, ID_START_WADB)
             }
 
+            // 电脑 ADB 模式：始终显示详细电脑操作步骤
             addItem(StartAdbViewHolder.CREATOR, null, ID_START_ADB)
-
-            if (!root) {
-                addItem(StartRootViewHolder.CREATOR, rootRestart, ID_START_ROOT)
-            }
         }
         addItem(LearnMoreViewHolder.CREATOR, null, ID_LEARN_MORE)
         notifyDataSetChanged()

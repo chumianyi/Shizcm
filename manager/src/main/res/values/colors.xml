@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="notification">#3F51B5</color>
+    <color name="notification">#00B368</color>
 
-    <color name="app_color_light">#3F51B5</color>
-    <color name="app_color_dark">#B1B8DF</color>
+    <color name="app_color_light">#00B368</color>
+    <color name="app_color_dark">#7CE7B4</color>
+
+    <!-- Shizcm 绿色主题专属色 -->
+    <color name="shizcm_green_light">#00B368</color>
+    <color name="shizcm_green">#00C853</color>
+    <color name="shizcm_green_dark">#1B5E20</color>
+    <color name="shizcm_green_accent">#00E676</color>
+    <color name="shizcm_green_bg_from">#E8F5E9</color>
+    <color name="shizcm_green_bg_to">#C8E6C9</color>
+    <color name="shizcm_green_night_bg_from">#0B2E16</color>
+    <color name="shizcm_green_night_bg_to">#123C1E</color>
+    <color name="home_card_background_color">#E6FFFFFF</color>
+    <color name="home_card_foreground_color">#1400B368</color>
 </resources>

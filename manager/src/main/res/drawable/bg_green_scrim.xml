@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shizcm 绿色主题渐变遮罩（压暗壁纸，保证文字可读性） -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="270"
+        android:startColor="#E60B2E16"
+        android:centerColor="#B3143A1E"
+        android:endColor="#991B5E20" />
+</shape>

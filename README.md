@@ -1,5 +1,27 @@
-# Shizuku
+# Shizcm
 
+基于开源项目 [Shizuku](https://github.com/RikkaApps/Shizuku) 改造的 Android 授权管理应用。
+
+## 特性
+
+- 应用名 **Shizcm**，包名 `com.chumian.shizcm`，可与原版 Shizuku 共存安装
+- **激活状态互通**：只要 Shizcm 或原版 Shizuku 任一方激活，Shizcm 即显示「已激活」
+- 三种授权模式（按设备能力自动显示）：
+  - **普通模式**：Android 11+ 无线调试配对授权（不支持的设备不显示）
+  - **电脑 ADB 模式**：通过电脑 adb 启动
+  - **Root 模式**：检测到 Root（su）时显示
+- 绿色主题 UI，不受系统暗色主题影响，始终绿色
+- 开屏动画：用户壁纸 + 竖排文字「科技是为了服务人类」（霞鹜文楷开源字体）+ 加载动画
+
+## 构建
+
+```bash
+./gradlew :manager:assembleRelease
+```
+
+GitHub Actions 云端构建：推送 `main` 分支后自动构建，产物见 Actions Artifacts。
+
+---
 ## Background
 
 When developing apps that requires root, the most common method is to run some commands in the su shell. For example, there is an app that uses the `pm enable/disable` command to enable/disable components.
@@ -82,4 +104,4 @@ Under Apache 2.0 section 6, specifically:
 
 * You are **FORBIDDEN** to use `manager/src/main/res/mipmap*/ic_launcher*.png` image files, unless for displaying Shizuku itself.
 
-* You are **FORBIDDEN** to use `Shizuku` as app name or use `moe.shizuku.privileged.api` as application id or declare `moe.shizuku.manager.permission.*` permission.
+* You are **FORBIDDEN** to use `Shizuku` as app name or use `com.chumian.shizcm` as application id or declare `moe.shizuku.manager.permission.*` permission.

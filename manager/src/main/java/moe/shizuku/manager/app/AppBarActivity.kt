@@ -32,6 +32,10 @@ abstract class AppBarActivity : AppActivity() {
         super.setContentView(getLayoutId())
 
         setSupportActionBar(toolbar)
+
+        // Shizcm：全局绿色主题 + 用户壁纸背景（所有 AppBar 页面统一生效）
+        rootView.setBackgroundResource(R.drawable.bg_wallpaper_scrim)
+        toolbarContainer.setBackgroundResource(R.drawable.bg_appbar_green)
     }
 
     @LayoutRes

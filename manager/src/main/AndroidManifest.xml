@@ -18,26 +18,31 @@
         android:required="false" />
 
     <permission-group
-        android:name="moe.shizuku.manager.permission-group.API"
+        android:name="com.chumian.shizcm.permission-group.API"
         android:description="@string/permission_group_description"
         android:icon="@drawable/ic_system_icon"
         android:label="@string/permission_group_label" />
 
     <permission
-        android:name="moe.shizuku.manager.permission.MANAGER"
+        android:name="com.chumian.shizcm.permission.MANAGER"
         android:protectionLevel="signature" />
-    <uses-permission android:name="moe.shizuku.manager.permission.MANAGER" />
+    <uses-permission android:name="com.chumian.shizcm.permission.MANAGER" />
 
     <permission
-        android:name="moe.shizuku.manager.permission.API_V23"
+        android:name="com.chumian.shizcm.permission.API_V23"
         android:description="@string/permission_description"
         android:icon="@drawable/ic_system_icon"
         android:label="@string/permission_label"
-        android:permissionGroup="moe.shizuku.manager.permission-group.API"
+        android:permissionGroup="com.chumian.shizcm.permission-group.API"
         android:protectionLevel="dangerous" />
     <uses-permission
-        android:name="moe.shizuku.manager.permission.API_V23"
+        android:name="com.chumian.shizcm.permission.API_V23"
         tools:node="remove" />
+
+    <!-- 激活状态互通：请求原版 Shizuku 的 API 权限（仅声明，不申请运行时授权），
+         使原版 Shizuku Server 在运行时会向本应用推送 Binder，
+         从而实现"任一方激活，本应用即显示已激活"。 -->
+    <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
 
     <permission
         android:name="${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
@@ -66,9 +71,9 @@
         tools:targetApi="33">
 
         <activity
-            android:name=".MainActivity"
-            android:banner="@mipmap/banner"
-            android:exported="true">
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -79,6 +84,9 @@
                 <!--<category android:name="android.intent.category.LEANBACK_LAUNCHER" />-->
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:banner="@mipmap/banner" />
         <activity
             android:name=".management.ApplicationManagementActivity"
             android:label="@string/home_app_management_title" />
@@ -119,7 +127,7 @@
             android:exported="true"
             android:theme="@style/GrantPermissions">
             <intent-filter>
-                <action android:name="rikka.shizuku.intent.action.REQUEST_BINDER" />
+                <action android:name="com.chumian.shizcm.intent.action.REQUEST_BINDER" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -128,7 +136,7 @@
             android:name=".legacy.LegacyIsNotSupportedActivity"
             android:excludeFromRecents="true"
             android:exported="true"
-            android:permission="moe.shizuku.manager.permission.API"
+            android:permission="com.chumian.shizcm.permission.API"
             android:theme="@style/GrantPermissions">
             <intent-filter>
                 <action android:name="${applicationId}.intent.action.REQUEST_AUTHORIZATION" />
@@ -163,7 +171,7 @@
             android:exported="true"
             tools:ignore="ExportedReceiver">
             <intent-filter>
-                <action android:name="rikka.shizuku.intent.action.REQUEST_BINDER" />
+                <action android:name="com.chumian.shizcm.intent.action.REQUEST_BINDER" />
             </intent-filter>
         </receiver>
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_window_bg"
+    tools:context="moe.shizuku.manager.SplashActivity">
+
+    <!-- 壁纸（淡入动画用；窗口背景已同步显示同一壁纸，冷启动无白屏） -->
+    <ImageView
+        android:id="@+id/splash_wallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/wallpaper" />
+
+    <!-- 左侧竖排文字：科技是为了服务人类（每字一行，由代码动态生成，使用霞鹜文楷） -->
+    <LinearLayout
+        android:id="@+id/splash_chars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginStart="30dp"
+        android:orientation="vertical" />
+
+    <!-- 底部加载指示 -->
+    <LinearLayout
+        android:id="@+id/splash_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="56dp"
+        android:alpha="0"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ProgressBar
+            android:id="@+id/splash_progress"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:indeterminateTint="@color/shizcm_green_accent" />
+
+        <TextView
+            android:id="@+id/splash_loading_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/splash_loading"
+            android:textColor="@color/shizcm_green_accent"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</FrameLayout>

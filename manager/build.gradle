@@ -12,7 +12,7 @@ plugins {
 android {
     namespace 'moe.shizuku.manager'
     defaultConfig {
-        applicationId "moe.shizuku.privileged.api"
+        applicationId "com.chumian.shizcm"
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         externalNativeBuild {
@@ -76,7 +76,7 @@ autoResConfig {
 materialThemeBuilder {
     themes {
         shizuku {
-            primaryColor = "#3F51B5"
+            primaryColor = "#00B368"
             lightThemeFormat = "Theme.Material3.Light.%s"
             lightThemeParent = "Theme.Material3.Light.Rikka"
             darkThemeFormat = "Theme.Material3.Dark.%s"
@@ -112,7 +112,7 @@ afterEvaluate {
 
 android.applicationVariants.configureEach { variant ->
     variant.outputs.configureEach {
-        outputFileName = "shizuku-v${variant.versionName}-${variant.name}.apk"
+        outputFileName = "shizcm-v${variant.versionName}-${variant.name}.apk"
 
         variant.assembleProvider.get().doLast {
             def outDir = new File(rootDir, "out")

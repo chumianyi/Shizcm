@@ -2,7 +2,9 @@
 <resources>
 
     <style name="Base.AppTheme.Light" parent="Theme.Material3.Light.Shizuku">
-        <item name="android:statusBarColor">?android:colorBackground</item>
+        <item name="android:statusBarColor">#008F56</item>
+        <item name="android:navigationBarColor">?android:colorBackground</item>
+        <item name="android:forceDarkAllowed">false</item>
 
         <item name="appColorPrimary">@color/app_color_light</item>
         <item name="homeCardStyle">@style/Card.Light</item>
@@ -16,6 +18,10 @@
     <style name="Theme.Light" parent="Base.AppTheme.Light" />
 
     <style name="Base.AppTheme" parent="Theme.Material3.Dark.Shizuku">
+        <item name="android:statusBarColor">#004D2A</item>
+        <item name="android:navigationBarColor">?android:colorBackground</item>
+        <item name="android:forceDarkAllowed">false</item>
+
         <item name="appColorPrimary">@color/app_color_dark</item>
         <item name="homeCardStyle">@style/Card</item>
 
@@ -26,5 +32,14 @@
     </style>
 
     <style name="Theme" parent="Base.AppTheme" />
+
+    <!-- Shizcm 开屏动画主题：无 ActionBar、无标题，窗口背景直接使用壁纸+遮罩，冷启动即显 -->
+    <style name="Theme.Splash" parent="Theme.Light">
+        <item name="android:windowBackground">@drawable/splash_window_bg</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowDisablePreview">false</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
 
 </resources>

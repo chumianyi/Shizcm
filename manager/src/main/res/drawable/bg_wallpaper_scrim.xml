@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shizcm 首页背景：用户壁纸 + 绿色遮罩 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/wallpaper" />
+    </item>
+    <item>
+        <drawable android:drawable="@drawable/bg_green_scrim" />
+    </item>
+</layer-list>

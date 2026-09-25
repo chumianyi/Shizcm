@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 顶部栏：半透明绿色渐变（透出壁纸背景，保持品牌色） -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="270"
+        android:startColor="#D9008F56"
+        android:centerColor="#B300B368"
+        android:endColor="#9900C853" />
+</shape>

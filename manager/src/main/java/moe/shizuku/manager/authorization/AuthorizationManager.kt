@@ -22,7 +22,7 @@ object AuthorizationManager {
         val data = Parcel.obtain()
         val reply = Parcel.obtain()
         return try {
-            data.writeInterfaceToken("moe.shizuku.server.IShizukuService")
+            data.writeInterfaceToken("com.chumian.shizcm.server.IShizukuService")
             data.writeInt(userId)
             try {
                 Shizuku.getBinder()!!.transact(ServerConstants.BINDER_TRANSACTION_getApplications, data, reply, 0)

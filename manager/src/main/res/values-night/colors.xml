@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shizcm 夜间模式：绿色暗色主题（始终绿色，不跟随系统默认配色） -->
+<resources>
+    <color name="home_card_background_color">#F21B3A24</color>
+    <color name="home_card_foreground_color">#1A00E676</color>
+</resources>

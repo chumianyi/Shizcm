@@ -23,9 +23,12 @@ public class ThemeHelper {
         return ShizukuSettings.getPreferences().getBoolean(KEY_BLACK_NIGHT_THEME, EnvironmentUtils.isWatch(context));
     }
 
+    /**
+     * Shizcm：强制关闭系统动态取色（Material You）。
+     * 无论系统壁纸/主题色是什么，应用始终保持绿色主题，不受系统暗色/亮色影响。
+     */
     public static boolean isUsingSystemColor() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                && ShizukuSettings.getPreferences().getBoolean(KEY_USE_SYSTEM_COLOR, true);
+        return false;
     }
 
     public static String getTheme(Context context) {
