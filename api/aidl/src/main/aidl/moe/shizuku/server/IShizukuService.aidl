@@ -2,7 +2,7 @@ package moe.shizuku.server;
 
 import moe.shizuku.server.IRemoteProcess;
 import moe.shizuku.server.IShizukuApplication;
-import com.chumian.shizcm.server.IShizukuServiceConnection;
+import moe.shizuku.server.IShizukuServiceConnection;
 
 interface IShizukuService {
 
