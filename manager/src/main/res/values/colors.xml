@@ -14,6 +14,4 @@
     <color name="shizcm_green_bg_to">#C8E6C9</color>
     <color name="shizcm_green_night_bg_from">#0B2E16</color>
     <color name="shizcm_green_night_bg_to">#123C1E</color>
-    <color name="home_card_background_color">#E6FFFFFF</color>
-    <color name="home_card_foreground_color">#1400B368</color>
 </resources>
