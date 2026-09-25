@@ -33,8 +33,13 @@ abstract class AppBarActivity : AppActivity() {
 
         setSupportActionBar(toolbar)
 
-        // Shizcm：全局绿色主题 + 用户壁纸背景（所有 AppBar 页面统一生效）
-        rootView.setBackgroundResource(R.drawable.bg_wallpaper_scrim)
+        // Shizcm：全局绿色主题 + 用户壁纸背景（所有 AppBar 页面统一生效）。
+        // 壁纸解码失败（低端设备/内存紧张）时降级为纯绿色渐变，保证不闪退。
+        try {
+            rootView.setBackgroundResource(R.drawable.bg_wallpaper_scrim)
+        } catch (tr: Throwable) {
+            rootView.setBackgroundResource(R.drawable.bg_green_scrim)
+        }
         toolbarContainer.setBackgroundResource(R.drawable.bg_appbar_green)
     }
 

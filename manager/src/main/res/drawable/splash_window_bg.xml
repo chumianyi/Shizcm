@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 开屏背景：用户壁纸 + 更深的绿色遮罩，保证竖排文字清晰 -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/wallpaper" />
-    </item>
-    <item>
-        <shape>
-            <gradient
-                android:angle="0"
-                android:startColor="#F20B2E16"
-                android:centerColor="#D9143A1E"
-                android:endColor="#B31B5E20" />
-        </shape>
-    </item>
-</layer-list>
+<!-- Shizcm 开屏窗口背景：绿色渐变（轻量，冷启动首帧零解码开销，低端设备不 OOM）。
+     用户壁纸由 activity_splash.xml 中的 ImageView 全屏显示（带淡入动画），两者叠加效果一致。 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="270"
+        android:startColor="#0B2E16"
+        android:centerColor="#143A1E"
+        android:endColor="#1B5E20" />
+</shape>

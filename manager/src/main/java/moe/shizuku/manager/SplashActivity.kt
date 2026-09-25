@@ -4,8 +4,8 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
@@ -14,6 +14,7 @@ import android.os.Looper
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.OvershootInterpolator
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import moe.shizuku.manager.utils.EnvironmentUtils
@@ -25,6 +26,8 @@ import moe.shizuku.manager.utils.Logger.LOGGER
  *  - 左侧竖排绿色文字「科技是为了服务人类」（霞鹜文楷开源字体，逐字弹性入场）
  *  - 底部「正在加载中」打字机动画 + 绿色加载指示器
  *  - 加载期间预热字体、配置、Root/无线调试/原版 Shizuku 环境检测，加载完成进入主界面
+ *
+ * 健壮性：开屏失败（资源/动画/字体异常）不闪退——直接降级进入主界面。
  */
 class SplashActivity : AppCompatActivity() {
 
@@ -34,6 +37,10 @@ class SplashActivity : AppCompatActivity() {
         private const val SLOGAN = "科技是为了服务人类"
         private const val LOADING_BASE = "正在加载中"
         private const val FONT_PATH = "fonts/LXGWWenKai-Regular.ttf"
+
+        // Shizcm 品牌绿色（硬编码，不依赖主题/夜间资源，任何设备必然可用）
+        private const val GREEN_ACCENT = 0xFF00E676.toInt()
+        private const val GREEN_DARK = 0xFF1B5E20.toInt()
     }
 
     private val mainHandler = Handler(Looper.getMainLooper())
@@ -57,9 +64,15 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
 
-        loadingText = findViewById(R.id.splash_loading_text)
+        try {
+            setContentView(R.layout.activity_splash)
+            loadingText = findViewById(R.id.splash_loading_text)
+        } catch (tr: Throwable) {
+            LOGGER.e(tr, "splash layout failed, go home directly")
+            goHome()
+            return
+        }
 
         // 后台加载字体与资源/环境
         Thread {
@@ -70,7 +83,13 @@ class SplashActivity : AppCompatActivity() {
                 Typeface.DEFAULT
             }
 
-            runOnUiThread { buildVerticalSlogan() }
+            runOnUiThread {
+                try {
+                    buildVerticalSlogan()
+                } catch (tr: Throwable) {
+                    LOGGER.e(tr, "buildVerticalSlogan failed")
+                }
+            }
 
             preloadEnvironment()
 
@@ -78,7 +97,11 @@ class SplashActivity : AppCompatActivity() {
             mainHandler.post { maybeEnterHome() }
         }.start()
 
-        startAnimations()
+        try {
+            startAnimations()
+        } catch (tr: Throwable) {
+            LOGGER.e(tr, "startAnimations failed")
+        }
 
         // 最短展示时间
         mainHandler.postDelayed({
@@ -89,17 +112,17 @@ class SplashActivity : AppCompatActivity() {
 
     /** 左侧竖排文字：每个字一行，绿色 + 霞鹜文楷 + 弹性入场 */
     private fun buildVerticalSlogan() {
-        val container = findViewById<android.widget.LinearLayout>(R.id.splash_chars)
+        val container = findViewById<LinearLayout>(R.id.splash_chars)
         val density = resources.displayMetrics.density
 
         SLOGAN.forEachIndexed { index, ch ->
             val tv = TextView(this).apply {
                 text = ch.toString()
                 typeface = splashTypeface
-                setTextColor(resources.getColor(R.color.shizcm_green_accent, theme))
+                setTextColor(GREEN_ACCENT)
                 textSize = 28f
                 includeFontPadding = false
-                setShadowLayer(18f * density, 0f, 0f, resources.getColor(R.color.shizcm_green_dark, theme))
+                setShadowLayer(18f * density, 0f, 0f, GREEN_DARK)
                 alpha = 0f
                 translationY = 26f * density
             }
@@ -171,17 +194,34 @@ class SplashActivity : AppCompatActivity() {
         finished = true
         mainHandler.removeCallbacks(typingRunnable)
 
-        val root = findViewById<View>(R.id.splash_chars)
-        val fadeOut = ObjectAnimator.ofFloat(root, View.ALPHA, 1f, 0f)
-        fadeOut.duration = 350
-        fadeOut.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-                finish()
-            }
-        })
-        fadeOut.start()
+        try {
+            val root = findViewById<View>(R.id.splash_chars)
+            val fadeOut = ObjectAnimator.ofFloat(root, View.ALPHA, 1f, 0f)
+            fadeOut.duration = 350
+            fadeOut.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    goHome()
+                }
+            })
+            fadeOut.start()
+        } catch (tr: Throwable) {
+            LOGGER.e(tr, "fadeOut failed")
+            goHome()
+        }
+    }
+
+    /** 幂等进入主界面（任何开屏异常都会走到这里，保证不闪退） */
+    private fun goHome() {
+        if (finished) return
+        finished = true
+        mainHandler.removeCallbacks(typingRunnable)
+        try {
+            startActivity(Intent(this, MainActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        } catch (tr: Throwable) {
+            LOGGER.e(tr, "goHome failed")
+        }
+        finish()
     }
 
     override fun onDestroy() {
